@@ -6,9 +6,9 @@ organization := "com.example"
 
 scalaVersion := "2.12.6"
 
-lazy val json4SVer = "3.6.0-M2"  // todo update to latest when next ver comes out (need at least this for JavaTimeSerializers)
-lazy val kafkaVer = "1.0.0"
-lazy val scalatestVer = "3.0.4"
+lazy val json4SVer = "3.6.0-M4"  // todo update to latest when next ver comes out (need at least this for JavaTimeSerializers)
+lazy val kafkaVer = "1.0.1"
+lazy val scalatestVer = "3.0.5"
 
 // Always fork the jvm (test and run)
 fork := true
@@ -32,7 +32,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
   
   // For testing:
-  "com.madewithtea" %% "mockedstreams" % "1.5.0" % "test",
+  "com.madewithtea" %% "mockedstreams" % "1.6.0" % "test",
   "org.scalatest" %% "scalatest" % scalatestVer % "test"
   //"org.scalactic" %% "scalactic" % scalatestVer % "test",
 )
