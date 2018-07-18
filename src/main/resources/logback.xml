@@ -1,0 +1,25 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+
+      <!-- This pattern mostly matches the Akka log output: -->
+      <pattern>[%level] [%date] [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!--
+  <root level="debug">
+  <root level="info">
+  <root level="warn">
+  -->
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+  <!-- force kafka logs to regardless of above, debug is way too verbose -->
+  <logger name="org.apache.kafka" level="INFO"><appender-ref ref="STDOUT" /></logger>
+
+</configuration>

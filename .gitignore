@@ -1,0 +1,17 @@
+# IntelliJ stuff
+*.iml
+.idea/
+
+# SBT / Gradle
+.gradle/
+build/
+target/
+project/project/target/
+
+# Don't check in any libraries
+lib/
+
+# Other
+.DS_Store
+
+
