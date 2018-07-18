@@ -1,5 +1,15 @@
 # Template / Starter App for Kafka Streams
 
+## Goals
+
+To provide a starter project for Kafka Streams with Scala.  It includes:
+* Working "pipe" stream processor, ready to be added to.
+* Configuration via pureconfig
+* Logging with scala-logging
+* unit-testing of streams via mockedstreams
+* Json handling with Json4s
+* Fat jar support via assembly plugin
+
 ## To Use
 
 ### Run
