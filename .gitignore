@@ -6,7 +6,6 @@
 .gradle/
 build/
 target/
-project/project/target/
 
 # Don't check in any libraries
 lib/
