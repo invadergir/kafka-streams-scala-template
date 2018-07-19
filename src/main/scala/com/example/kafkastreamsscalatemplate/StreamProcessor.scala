@@ -3,13 +3,15 @@ package com.example.kafkastreamsscalatemplate
 import java.util.Properties
 import java.util.concurrent.{CountDownLatch, TimeUnit}
 
+import com.lightbend.kafka.scala.streams.{KStreamS, StreamsBuilderS}
 import com.typesafe.scalalogging.StrictLogging
 import org.apache.kafka.common.serialization._
 import org.apache.kafka.streams.kstream._
+import org.apache.kafka.streams._
 import org.apache.kafka.streams.{KafkaStreams, StreamsBuilder, StreamsConfig, Topology}
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.{read, write}
-
+import scala.collection.JavaConverters._
 
 object StreamProcessor extends StrictLogging{
 
@@ -51,13 +53,61 @@ object StreamProcessor extends StrictLogging{
     outputTopic: String
   ): Topology = {
   
+    // Start the stream by creating a wrapped StreamsBuilder.
+    val builderS = new StreamsBuilderS(builder)
+
+    // Create the input stream.
+    // (Need an implicit Consumed object.)
+    implicit val consumed =
+      Consumed.`with`(Serdes.String, Serdes.String)
+    val source: KStreamS[String, String] = builderS.stream(inputTopic)
+
+    // Flatmap example: produce 2 messages for every 1 input message.  
+    val outStream = source.flatMap{ (key, value) =>
+      List(
+        (key, value),
+        (key, value + "X")
+      )
+    }
+
+    // Output to the output topic.  (Need an implicit Produced.)
+    implicit val produced = Produced.`with`(Serdes.String, Serdes.String)
+    outStream.to(outputTopic)
+
+    // Create the topology
+    val topology: Topology = builderS.build()
+    logger.info(">>>>  topology = "+topology.describe)
+    topology
+  }
+
+  /** Create the stream topology, in planning to use the raw Java
+    * API.  Not sure why you'd want to use this though.  Included 
+    * is a flatMap implementation for comparison to the above.
+    */
+  def createTopologyJava(
+    builder: StreamsBuilder,
+    inputTopic: String,
+    outputTopic: String
+  ): Topology = {
+  
     // start the stream
     val source: KStream[String, String] = builder.stream(inputTopic)
 
     // todo process the data...
     
+    // Flatmap example using Java API: produce 2 messages for every 1 input message.  
+    val outStream: KStream[String, String] =
+      source.flatMap(new KeyValueMapper[String, String, java.lang.Iterable[KeyValue[String, String]]] {
+        def apply(key: String, value: String): java.lang.Iterable[KeyValue[String, String]] = {
+          List(
+            new KeyValue[String, String](key, value),
+            new KeyValue[String, String](key, value + "X")
+          ).asJava
+        }
+      })
+    
     // output to the output topic
-    source.to(outputTopic)
+    outStream.to(outputTopic)
 
     // Create the topology
     val topology: Topology = builder.build()

@@ -17,8 +17,12 @@ fork := true
 cancelable in Global := true
 
 libraryDependencies ++= Seq(
-  
+
+  // Kafka streams
   "org.apache.kafka" % "kafka-streams" % kafkaVer,
+
+  // scala wrapper for kafka streams DSL:
+  "com.lightbend" %% "kafka-streams-scala" % "0.2.1",
 
   // For JSON parsing (see https://github.com/json4s/json4s)
   "org.json4s" %%  "json4s-jackson" % json4SVer,

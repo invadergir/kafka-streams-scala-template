@@ -3,7 +3,8 @@
 ## Goals
 
 To provide a starter project for Kafka Streams with Scala.  It includes:
-* Working "pipe" stream processor, ready to be added to.
+* Simple working stream processor with both Scala-style and Java-style flatMap examples, ready to be added to.
+* Preconfigured for use with Lightbend's kafka-streams-scala wrapper to make life easier for Scala developers.
 * Configuration via pureconfig
 * Logging with scala-logging
 * unit-testing of streams via mockedstreams
