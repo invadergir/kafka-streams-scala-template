@@ -7,7 +7,7 @@ organization := "com.example"
 scalaVersion := "2.12.6"
 
 lazy val json4SVer = "3.6.0-M4"  // todo update to latest when next ver comes out (need at least this for JavaTimeSerializers)
-lazy val kafkaVer = "1.0.1"
+lazy val kafkaVer = "1.0.0"
 lazy val scalatestVer = "3.0.5"
 
 // Always fork the jvm (test and run)
