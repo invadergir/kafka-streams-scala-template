@@ -15,9 +15,22 @@ To provide a starter project for Kafka Streams with Scala.  It includes:
 
 ### Run
 
+If you run this project, the example behavior is to transform the input messages on the "input" topic in the following way:
+
+1. Copy input message into two
+1. The first copy is unchanged.
+1. The 2nd copy is modified.  For messages that parse into JSON, add "X": "XXX" to it.  For non-JSON, simply append "XXX" to the end.
+
+The transformed messages are output onto the "output" topic.
+
+This project also can be used to test robot framework kafka stream testing applications.  See [https://github.com/invadergir/robotframework-pykafka](https://github.com/invadergir/robotframework-pykafka) for an example for testing this app in robot framework.
+
+To build and run the project (must have [sbt](https://www.scala-sbt.org/download.html) installed):
 ```
 sbt test run
 ```
+
+Use your favorite kafka producer and consumer to send it text strings and/or JSON strings to see what it does on the output topic.
 
 ### Build Jar
 
