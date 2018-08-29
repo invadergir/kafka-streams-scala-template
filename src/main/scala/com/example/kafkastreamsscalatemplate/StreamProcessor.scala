@@ -9,9 +9,12 @@ import org.apache.kafka.common.serialization._
 import org.apache.kafka.streams.kstream._
 import org.apache.kafka.streams._
 import org.apache.kafka.streams.{KafkaStreams, StreamsBuilder, StreamsConfig, Topology}
+import org.json4s.JValue
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.{read, write}
+
 import scala.collection.JavaConverters._
+import scala.util.Try
 
 object StreamProcessor extends StrictLogging{
 
@@ -62,12 +65,9 @@ object StreamProcessor extends StrictLogging{
       Consumed.`with`(Serdes.String, Serdes.String)
     val source: KStreamS[String, String] = builderS.stream(inputTopic)
 
-    // Flatmap example: produce 2 messages for every 1 input message.  
+    // produce 2 messages for every 1 input message.
     val outStream = source.flatMap{ (key, value) =>
-      List(
-        (key, value),
-        (key, value + "X")
-      )
+      transform(key, value)
     }
 
     // Output to the output topic.  (Need an implicit Produced.)
@@ -80,9 +80,12 @@ object StreamProcessor extends StrictLogging{
     topology
   }
 
-  /** Create the stream topology, in planning to use the raw Java
+  /** Create the stream topology, using the raw Java
     * API.  Not sure why you'd want to use this though.  Included 
-    * is a flatMap implementation for comparison to the above.
+    * is a flatMap implementation for comparison to the above. 
+    * Note the extra boilerplate that is removed.  The same 
+    * transformation is applied to the input as in the Scala 
+    * topology above. 
     */
   def createTopologyJava(
     builder: StreamsBuilder,
@@ -93,16 +96,13 @@ object StreamProcessor extends StrictLogging{
     // start the stream
     val source: KStream[String, String] = builder.stream(inputTopic)
 
-    // todo process the data...
-    
     // Flatmap example using Java API: produce 2 messages for every 1 input message.  
     val outStream: KStream[String, String] =
       source.flatMap(new KeyValueMapper[String, String, java.lang.Iterable[KeyValue[String, String]]] {
         def apply(key: String, value: String): java.lang.Iterable[KeyValue[String, String]] = {
-          List(
-            new KeyValue[String, String](key, value),
-            new KeyValue[String, String](key, value + "X")
-          ).asJava
+          transform(key, value).map{ case (k, v) => 
+            new KeyValue[String, String](k, v),
+          }.asJava
         }
       })
     
@@ -114,6 +114,46 @@ object StreamProcessor extends StrictLogging{
     logger.info(">>>>  topology = "+topology.describe)
     topology
   }
+
+  /**
+    * Transform the input message by splitting into two and 
+    * modifying the second one. 
+    *  
+    * On the second message, add a k-v pair X:XXX if it is JSON, 
+    * and if it is not JSON, append "XXX" to the end of the input 
+    * string.  The keys are kept the same.
+    * 
+    * @return Key-value pairs in a List[(String, String)]
+    */
+  def transform(key: String, value: String): List[(String, String)] = {
+
+    val parsed: Option[JValue] = value match {
+      case s: String =>
+        if (s.nonEmpty) {
+          val firstChar = s.trim.substring(0,1)
+          if (firstChar == "{" || firstChar == "[") {
+            Try{parse(value)}.toOption
+          }
+          else None
+        }
+        else None
+      case _ => None
+    }
+
+    if (parsed.isDefined) {
+      List(
+        (key, value),
+        (key, compact(parsed.get merge parse("""{"X":"XXX"}""")))
+      )
+    }
+    else {
+      List(
+        (key, value),
+        (key, value + "XXX")
+      )
+    }
+  }
+
 
   /** Main method
     */
