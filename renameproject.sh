@@ -24,7 +24,7 @@ Syntax()
     echo ""
     echo "Adjusts this project to use the new name you specify.  Things it does:"
     echo ""
-    echo "  * Renames packages from '$PKGPREFIX.spark-template' to '$PKGPREFIX.{NEWNAME}'"
+    echo "  * Renames packages from '$PKGPREFIX.kafka-streams-scala-template' to '$PKGPREFIX.{NEWNAME}'"
     echo "    (scala files)"
     echo "  * Rename source dir names to match package names"
     echo ""
