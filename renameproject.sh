@@ -7,6 +7,7 @@ THISPROG=$(basename $(readlink -e ${BASH_SOURCE[0]}))
 
 PKGPREFIX="com.example"
 ORIGNAME="kafka-streams-scala-template"
+ORIGNAME_NODASHES="kafkastreamsscalatemplate"
 shopt -s dotglob 
 
 PrintManualTodo()
@@ -24,7 +25,7 @@ Syntax()
     echo ""
     echo "Adjusts this project to use the new name you specify.  Things it does:"
     echo ""
-    echo "  * Renames packages from '$PKGPREFIX.kafka-streams-scala-template' to '$PKGPREFIX.{NEWNAME}'"
+    echo "  * Renames packages from '$PKGPREFIX.$ORIGNAME_NODASHES' to '$PKGPREFIX.{NEWNAME}'"
     echo "    (scala files)"
     echo "  * Rename source dir names to match package names"
     echo ""
@@ -42,7 +43,7 @@ Syntax()
     echo ""
     echo "*** NOTE that this script requires perl to be installed.  ***"
     echo ""
-    echo "EXAMPLE:  $THISPROG my-super-fun-app  -p com.acme.funstuff"
+    echo "EXAMPLE:  $THISPROG  my-super-fun-app  -p com.acme.mysuperfunapp"
     echo ""
     exit 101
 }
