@@ -6,7 +6,7 @@ organization := "com.example"
 
 scalaVersion := "2.12.6"
 
-lazy val json4SVer = "3.6.0-M4"  // todo update to latest when next ver comes out (need at least this for JavaTimeSerializers)
+lazy val json4SVer = "3.6.11"
 lazy val kafkaVer = "1.0.0"
 lazy val scalatestVer = "3.0.5"
 
@@ -14,7 +14,7 @@ lazy val scalatestVer = "3.0.5"
 fork := true
 
 // Allow CTRL-C to cancel running tasks without exiting SBT CLI.
-cancelable in Global := true
+Global / cancelable := true
 
 libraryDependencies ++= Seq(
 
@@ -42,14 +42,14 @@ libraryDependencies ++= Seq(
 )
 
 // Print full stack traces in tests:
-testOptions in Test += Tests.Argument("-oF")
+Test / testOptions += Tests.Argument("-oF")
 
 // Assembly stuff (for fat jar)
-mainClass in assembly := Some("com.example.kafkastreamsscalatemplate.Main")
-assemblyJarName in assembly := "kafka-streams-scala-template.jar"
+assembly / mainClass := Some("com.example.kafkastreamsscalatemplate.Main")
+assembly / assemblyJarName := "kafka-streams-scala-template.jar"
 
 // Some stuff to import in the console
-initialCommands in console := """
+console / initialCommands := """
 
   // project stuff
   import com.example.kafkastreamsscalatemplate._
