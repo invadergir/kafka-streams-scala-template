@@ -6,8 +6,9 @@ THISDIR=$(dirname $(readlink -e ${BASH_SOURCE[0]}))
 THISPROG=$(basename $(readlink -e ${BASH_SOURCE[0]}))
 
 PKGPREFIX="com.example"
-ORIGNAME="kafka-streams-scala-template"
-ORIGNAME_NODASHES="kafkastreamsscalatemplate"
+ORIGNAME=$(basename $THISDIR)
+# 'lean' name means without any dashes:
+ORIGNAMELEAN=${ORIGNAME//-/}
 shopt -s dotglob 
 
 PrintManualTodo()
@@ -25,10 +26,12 @@ Syntax()
     echo ""
     echo "Adjusts this project to use the new name you specify.  Things it does:"
     echo ""
-    echo "  * Renames packages from '$PKGPREFIX.$ORIGNAME_NODASHES' to '$PKGPREFIX.{NEWNAME}'"
+    echo "  * Renames packages from '$PKGPREFIX.$ORIGNAMELEAN' to '$PKGPREFIX.{NEWNAME}'"
     echo "    (scala files)"
     echo "  * Rename source dir names to match package names"
-    echo ""
+    echo "  * Deletes the .git dir."
+    echo "  * Clears out the LICENSE file (adds TODO marker).  You'll have to edit this."
+    echo "  "
     echo "Options:"
     echo ""
     echo "-p NEW_PACKAGE_PREFIX = the 'old' package prefix is 'com.example', and this "
@@ -43,7 +46,7 @@ Syntax()
     echo ""
     echo "*** NOTE that this script requires perl to be installed.  ***"
     echo ""
-    echo "EXAMPLE:  $THISPROG  my-super-fun-app  -p com.acme.mysuperfunapp"
+    echo "EXAMPLE:  $THISPROG  my-super-fun-app  -p com.acme   # sets new package name to com.acme.mysuperfunapp"
     echo ""
     exit 101
 }
@@ -87,16 +90,25 @@ done
 # Required params:
 [ -n "$NEWNAME" ] || err "The NEWNAME was not specified."
 
-ORIGNAMELEAN="${ORIGNAME//-/}"
-NEWNAMELEAN="${NEWNAME//-/}"
-[ -n "$ORIGNAMELEAN" ] || err "problem calculating ORIGNAMELEAN (it was all dashes): '$ORIGNAMELEAN'"
-[ -n "$NEWNAMELEAN" ] || err "problem calculating NEWNAMELEAN (it was all dashes): '$NEWNAMELEAN'"
+NEWNAMELEAN=${NEWNAME//-/}
+[ -n "$ORIGNAMELEAN" ] || err "problem calculating ORIGNAMELEAN: '$ORIGNAMELEAN'"
+[ -n "$NEWNAMELEAN" ] || err "problem calculating NEWNAMELEAN: '$NEWNAMELEAN'"
 
 # Make no change to package prefix if not specfied.
 [ -z "$NEW_PACKAGE_PREFIX" ] && NEW_PACKAGE_PREFIX="$PKGPREFIX"
 
 ORIGPKG="$PKGPREFIX.$ORIGNAMELEAN"
 NEWPKG="$NEW_PACKAGE_PREFIX.$NEWNAMELEAN"
+
+if false; then
+    echo 
+    echo "Vars:"
+    echo "ORIGPKG='$ORIGPKG'"
+    echo "NEWPKG='$NEWPKG'"
+    echo "ORIGNAMELEAN='$ORIGNAMELEAN'"
+    echo "NEWNAMELEAN='$NEWNAMELEAN'"
+    echo 
+fi
 
 echo "About to:"
 echo "* Rename all dirs from '$ORIGNAMELEAN' to '$NEWNAMELEAN'."
@@ -236,4 +248,5 @@ echo
 echo "The files & dirs have been modified.  Please note, you may still want to:"
 PrintManualTodo
 echo
+
 
