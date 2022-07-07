@@ -2,14 +2,13 @@ package com.example.kafkastreamsscalatemplate
 
 import org.scalactic.TypeCheckedTripleEquals
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
-import org.scalatest.{FunSpec, Inspectors, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-abstract class UnitSpec 
-  extends FunSpec 
-  with Matchers 
-  with BeforeAndAfterAll
-  with BeforeAndAfterEach
-  with TypeCheckedTripleEquals 
-  with Inspectors
-
-
+abstract class UnitSpec
+  extends AnyFunSpec
+    with Matchers
+    with BeforeAndAfterAll
+    with BeforeAndAfterEach
+    with TypeCheckedTripleEquals
+//  with Inspectors

@@ -1,6 +1,7 @@
 # IntelliJ stuff
 *.iml
 .idea/
+.bsp/
 
 # SBT / Gradle
 .gradle/

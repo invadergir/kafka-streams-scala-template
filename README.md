@@ -4,8 +4,6 @@
 
 To provide a starter project for Kafka Streams with Scala.  It includes:
 * Simple working stream processor with both Scala-style and Java-style flatMap examples, ready to be added to.
-* Preconfigured for use with Lightbend's kafka-streams-scala wrapper to make life easier for Scala developers.
-* Configuration via pureconfig
 * Logging with scala-logging
 * unit-testing of streams via mockedstreams
 * Json handling with Json4s
@@ -30,7 +28,23 @@ To build and run the project (must have [sbt](https://www.scala-sbt.org/download
 sbt test run
 ```
 
-Use your favorite kafka producer and consumer to send it text strings and/or JSON strings to see what it does on the output topic.
+Use your favorite kafka producer and consumer to send it text strings and/or JSON strings to see what it does on the output topic.  For example:
+
+```
+kafka-console-producer.sh --broker-list localhost:9092 --property parse.key=true --property 'key.separator=~~' --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --topic input
+>A~~1
+>B~~2
+```
+
+The output should be:
+
+```
++ kafka-console-consumer.sh --bootstrap-server localhost:9092 --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer --topic output
+A       1
+A       1XXX
+B       2
+B       2XXX
+```
 
 ### Build Jar
 

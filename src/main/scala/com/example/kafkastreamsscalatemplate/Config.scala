@@ -1,7 +1,8 @@
 package com.example.kafkastreamsscalatemplate
 
 import pureconfig._
-import pureconfig.configurable._
+import pureconfig.generic.auto._
+import pureconfig.generic.ProductHint
 import util.ValidString
 
 // app-wide settings / configuration object
@@ -18,7 +19,7 @@ object Config {
   //implicit val converterlocalDateTime = localDateTimeConfigConvert(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
   // global app configuration
-  val app: AppConfig = pureconfig.loadConfigOrThrow[AppConfig]("kafkastreamsscalatemplate")
+  val app: AppConfig = ConfigSource.default.loadOrThrow[AppConfigWrapper].app
   app.validate()
   println(s"App Configuration is $app")
   
@@ -34,8 +35,15 @@ object Config {
 
 import Config.check
 
-// top-level config object
-case class AppConfig(kafka: KafkaConfig) {
+// "AppConfigWrapper" is the top-level config object, and it's only necessary in 
+// order to provide an enclosing object.  Previous pureconfig APIs allowed you
+// to do that without an extra wrapping case class.
+case class AppConfigWrapper(app: AppConfig)
+case class AppConfig(
+  // TODO customize your configuration here
+  kafka: KafkaConfig
+) {
+  // TODO - improve validation - print all errors instead of only the first.
   def validate() = kafka.validate()
 }
 
