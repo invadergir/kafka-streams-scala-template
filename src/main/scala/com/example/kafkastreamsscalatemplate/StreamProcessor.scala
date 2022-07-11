@@ -135,7 +135,7 @@ object StreamProcessor extends StrictLogging{
 
     if (parsed.isDefined) {
       List(
-        (key, value),
+        (key, compact(parsed.get)),
         (key, compact(parsed.get merge parse("""{"X":"XXX"}""")))
       )
     }
