@@ -1,0 +1,93 @@
+[info] welcome to sbt 1.5.8 (Debian Java 11.0.15)
+[info] loading global plugins from /home/thysgye/.sbt/1.0/plugins
+[info] loading settings for project kafka-streams-scala-template-build from plugins.sbt ...
+[info] loading project definition from /code/opensource/0invadergir/kafka-streams-scala-template/project
+[info] loading settings for project kafka-streams-scala-template from build.sbt ...
+[info] set current project to kafka-streams-scala-template (in build file:/code/opensource/0invadergir/kafka-streams-scala-template/)
+[info] com.example:kafka-streams-scala-template_2.13:0.1 [S]
+[info]   +-ch.qos.logback:logback-classic:1.2.10
+[info]   | +-ch.qos.logback:logback-core:1.2.10
+[info]   | +-org.slf4j:slf4j-api:1.7.32
+[info]   | 
+[info]   +-com.github.pureconfig:pureconfig_2.13:0.17.1 [S]
+[info]   | +-com.github.pureconfig:pureconfig-core_2.13:0.17.1 [S]
+[info]   | | +-com.typesafe:config:1.4.1
+[info]   | | 
+[info]   | +-com.github.pureconfig:pureconfig-generic_2.13:0.17.1 [S]
+[info]   |   +-com.chuusai:shapeless_2.13:2.3.7 [S]
+[info]   |   +-com.github.pureconfig:pureconfig-core_2.13:0.17.1 [S]
+[info]   |   | +-com.typesafe:config:1.4.1
+[info]   |   | 
+[info]   |   +-com.github.pureconfig:pureconfig-generic-base_2.13:0.17.1 [S]
+[info]   |     +-com.github.pureconfig:pureconfig-core_2.13:0.17.1 [S]
+[info]   |       +-com.typesafe:config:1.4.1
+[info]   |       
+[info]   +-com.typesafe.scala-logging:scala-logging_2.13:3.9.4 [S]
+[info]   | +-org.scala-lang:scala-reflect:2.13.8 [S]
+[info]   | +-org.slf4j:slf4j-api:1.7.30 (evicted by: 1.7.32)
+[info]   | +-org.slf4j:slf4j-api:1.7.32
+[info]   | 
+[info]   +-org.apache.kafka:kafka-clients:2.7.2
+[info]   | +-com.github.luben:zstd-jni:1.4.5-6
+[info]   | +-org.lz4:lz4-java:1.7.1
+[info]   | +-org.slf4j:slf4j-api:1.7.30 (evicted by: 1.7.32)
+[info]   | +-org.slf4j:slf4j-api:1.7.32
+[info]   | +-org.xerial.snappy:snappy-java:1.1.7.7
+[info]   | 
+[info]   +-org.apache.kafka:kafka-streams-scala_2.13:2.7.2 [S]
+[info]   | +-org.apache.kafka:kafka-streams:2.7.2
+[info]   | | +-org.apache.kafka:connect-json:2.7.2
+[info]   | | | +-com.fasterxml.jackson.core:jackson-databind:2.10.5.1
+[info]   | | | | +-com.fasterxml.jackson.core:jackson-annotations:2.10.5
+[info]   | | | | +-com.fasterxml.jackson.core:jackson-core:2.10.5
+[info]   | | | | 
+[info]   | | | +-com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.10.5
+[info]   | | | | +-com.fasterxml.jackson.core:jackson-core:2.10.5
+[info]   | | | | +-com.fasterxml.jackson.core:jackson-databind:2.10.5 (evicted by: 2...
+[info]   | | | | +-com.fasterxml.jackson.core:jackson-databind:2.10.5.1
+[info]   | | | |   +-com.fasterxml.jackson.core:jackson-annotations:2.10.5
+[info]   | | | |   +-com.fasterxml.jackson.core:jackson-core:2.10.5
+[info]   | | | |   
+[info]   | | | +-org.apache.kafka:connect-api:2.7.2
+[info]   | | | | +-org.apache.kafka:kafka-clients:2.7.2
+[info]   | | | | | +-com.github.luben:zstd-jni:1.4.5-6
+[info]   | | | | | +-org.lz4:lz4-java:1.7.1
+[info]   | | | | | +-org.slf4j:slf4j-api:1.7.30 (evicted by: 1.7.32)
+[info]   | | | | | +-org.slf4j:slf4j-api:1.7.32
+[info]   | | | | | +-org.xerial.snappy:snappy-java:1.1.7.7
+[info]   | | | | | 
+[info]   | | | | +-org.slf4j:slf4j-api:1.7.30 (evicted by: 1.7.32)
+[info]   | | | | +-org.slf4j:slf4j-api:1.7.32
+[info]   | | | | 
+[info]   | | | +-org.slf4j:slf4j-api:1.7.30 (evicted by: 1.7.32)
+[info]   | | | +-org.slf4j:slf4j-api:1.7.32
+[info]   | | | 
+[info]   | | +-org.apache.kafka:kafka-clients:2.7.2
+[info]   | | | +-com.github.luben:zstd-jni:1.4.5-6
+[info]   | | | +-org.lz4:lz4-java:1.7.1
+[info]   | | | +-org.slf4j:slf4j-api:1.7.30 (evicted by: 1.7.32)
+[info]   | | | +-org.slf4j:slf4j-api:1.7.32
+[info]   | | | +-org.xerial.snappy:snappy-java:1.1.7.7
+[info]   | | | 
+[info]   | | +-org.rocksdb:rocksdbjni:5.18.4
+[info]   | | +-org.slf4j:slf4j-api:1.7.30 (evicted by: 1.7.32)
+[info]   | | +-org.slf4j:slf4j-api:1.7.32
+[info]   | | 
+[info]   | +-org.scala-lang.modules:scala-collection-compat_2.13:2.2.0 [S]
+[info]   | 
+[info]   +-org.json4s:json4s-ext_2.13:3.6.12 [S]
+[info]   | +-joda-time:joda-time:2.10.13
+[info]   | +-org.joda:joda-convert:2.2.1
+[info]   | 
+[info]   +-org.json4s:json4s-jackson_2.13:3.6.12 [S]
+[info]     +-com.fasterxml.jackson.core:jackson-databind:2.10.5.1
+[info]     | +-com.fasterxml.jackson.core:jackson-annotations:2.10.5
+[info]     | +-com.fasterxml.jackson.core:jackson-core:2.10.5
+[info]     | 
+[info]     +-com.fasterxml.jackson.core:jackson-databind:2.9.10.8 (evicted by: 2.10.5..
+[info]     +-org.json4s:json4s-core_2.13:3.6.12 [S]
+[info]       +-com.thoughtworks.paranamer:paranamer:2.8
+[info]       +-org.json4s:json4s-ast_2.13:3.6.12 [S]
+[info]       +-org.json4s:json4s-scalap_2.13:3.6.12 [S]
+[info]       
+[success] Total time: 1 s, completed Jul 15, 2022, 4:13:25 PM
