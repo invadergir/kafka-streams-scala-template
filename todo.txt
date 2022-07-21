@@ -1,0 +1,9 @@
+1. test in kafka 2.8:  
+  mocked streams fails
+  run OK
+2. test in kafka 3.2:
+  mocked streams fails
+  run OK (note, /opt/kafka-logs has to be local (can't be on vbox shared folder)
+
+* try adding stream testing according to 
+  https://kafka.apache.org/32/documentation/streams/developer-guide/testing.html
